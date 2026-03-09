@@ -1,0 +1,130 @@
+.navbar {
+    background-color: var(--cit-maroon);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar h2 { color: var(--cit-gold); }
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-greeting { font-weight: bold; }
+
+.logout-btn {
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    border: none; 
+    cursor: pointer; 
+    background: white; 
+    color: var(--cit-maroon); 
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover { background-color: #f3f4f6; }
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.dashboard-header {
+    color: var(--cit-maroon);
+    margin-bottom: 1rem;
+}
+
+.appointments-card {
+    margin-top: 2rem; 
+    padding: 2rem; 
+    background: var(--bg-light); 
+    border-radius: 8px; 
+    border-left: 5px solid var(--cit-gold);
+}
+
+.empty-state {
+    color: var(--text-muted); 
+    margin-top: 10px;
+}
+
+/* Add these to the bottom of Home.css */
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--cit-gold);
+}
+
+.nav-btn {
+    padding: 8px 16px;
+    background-color: var(--cit-gold);
+    color: var(--cit-maroon);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: #e59a22;
+}
+
+.landing-content {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.landing-title {
+    color: var(--cit-maroon);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.landing-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+}
+
+.landing-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.custom-btn {
+    width: auto;
+    padding: 0.875rem 2.5rem;
+    margin-top: 0;
+}
+
+.btn-secondary {
+    background-color: var(--cit-gold);
+    color: var(--cit-maroon);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #e59a22;
+}
