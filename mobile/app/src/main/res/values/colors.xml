@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="brand_primary_dark">#8B0000</color>
+    <color name="brand_primary_dark_darker">#5F0000</color>
+    <color name="background_light">#F8F8F8</color>
+    <color name="body_background">#FFFFFF</color>
+    <color name="input_border">#E0E0E0</color>
+    <color name="input_icon">#B0B0B0</color>
+    <color name="text_header">#FFFFFF</color>
+    <color name="text_body_dark">#212121</color>
+    <color name="text_body_muted">#757575</color>
+    <color name="text_link">#8B0000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brand_primary_dark"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_launcher_foreground"
+                    app:tint="@color/text_header" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="CIT-Care"
+                    android:textColor="@color/text_header"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Start your\nwellness journey"
+                android:textColor="@color/text_header"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Join our community to access personalized health services, mental health support, and wellness resources."
+                android:textColor="@color/text_header"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_rounded_body"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Create Account"
+                android:textColor="@color/text_body_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="Join thousands of students and staff."
+                android:textColor="@color/text_body_muted"
+                android:textSize="14sp" />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Full Name" android:textSize="12sp" android:textColor="@color/text_body_dark" />
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_rounded_body"
+                android:hint="John Doe"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:backgroundTint="#F0F0F0"
+                app:drawableStartCompat="@drawable/ic_person"
+                app:drawableTint="@color/input_icon"
+                android:drawablePadding="10dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Email address" android:textSize="12sp" android:textColor="@color/text_body_dark" />
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_rounded_body"
+                android:hint="you@example.com"
+                android:inputType="textEmailAddress"
+                android:layout_marginTop="4dp"
+                android:paddingStart="12dp"
+                android:textSize="14sp"
+                android:backgroundTint="#F0F0F0"
+                app:drawableStartCompat="@drawable/ic_email"
+                app:drawableTint="@color/input_icon"
+                android:drawablePadding="10dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Phone Number" android:textSize="12sp" android:textColor="@color/text_body_dark" />
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_rounded_body"
+                android:hint="(555) 123-4567"
+                android:inputType="phone"
+                android:layout_marginTop="4dp"
+                android:paddingStart="12dp"
+                android:textSize="14sp"
+                android:backgroundTint="#F0F0F0"
+                app:drawableStartCompat="@drawable/ic_call"
+                app:drawableTint="@color/input_icon"
+                android:drawablePadding="10dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="2" android:layout_marginBottom="16dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginEnd="8dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Password" android:textSize="12sp" android:textColor="@color/text_body_dark" />
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_rounded_body"
+                        android:inputType="textPassword"
+                        android:layout_marginTop="4dp"
+                        android:hint="••••••••"
+                        android:paddingStart="12dp"
+                        android:textSize="14sp"
+                        android:backgroundTint="#F0F0F0"
+                        app:drawableStartCompat="@drawable/ic_lock"
+                        app:drawableTint="@color/input_icon"
+                        android:drawablePadding="10dp"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="8dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Confirm" android:textSize="12sp" android:textColor="@color/text_body_dark" />
+                    <EditText
+                        android:id="@+id/etPasswordConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="••••••••"
+                        android:background="@drawable/bg_rounded_body"
+                        android:layout_marginTop="4dp"
+                        android:inputType="textPassword"
+                        android:paddingStart="12dp"
+                        android:textSize="14sp"
+                        android:backgroundTint="#F0F0F0"
+                        app:drawableStartCompat="@drawable/ic_lock"
+                        app:drawableTint="@color/input_icon"
+                        android:drawablePadding="10dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:text="I agree to the Terms of Service and Privacy Policy"
+                android:textColor="@color/text_body_muted"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/brand_primary_dark"
+                android:text="Create Account →"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/tvGoToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="40dp"
+                android:text="Already have an account? Sign in instead"
+                android:textColor="@color/text_body_muted"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="© 2026 CIT-Care. All rights reserved."
+                android:textColor="@color/text_body_muted"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
