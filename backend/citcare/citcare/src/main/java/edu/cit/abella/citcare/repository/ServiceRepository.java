@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ServiceRepository extends JpaRepository<ServiceEntity, Long> {
     // Standard CRUD operations
-    List<Appointment> findByServiceId(Long serviceId);
+    // List<Appointment> findByServiceId(Long serviceId);
 }
