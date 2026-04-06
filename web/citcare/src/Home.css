@@ -1,130 +1,93 @@
-.navbar {
-    background-color: var(--cit-maroon);
-    padding: 1rem 2rem;
+/* --- GUEST MODE STYLES --- */
+.guest-mode .hero-section {
+    background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    min-height: 90vh;
+    position: relative;
+}
+
+.hero-overlay {
+    background: linear-gradient(to right, rgba(128, 0, 0, 0.95), rgba(128, 0, 0, 0.7));
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+    color: white;
+}
+
+.guest-mode h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+.guest-mode h1 span { color: #FFD700; }
+.guest-mode .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; letter-spacing: 1px; }
+
+.hero-stats { display: flex; gap: 50px; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px; }
+.hero-stats h3 { color: #FFD700; font-size: 2.2rem; }
+
+.services-preview { padding: 80px 8%; text-align: center; background: #fff; }
+.service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
+.service-card { padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
+
+/* --- REGISTERED USER MODE STYLES --- */
+.user-mode { background: #f4f7f6; min-height: 100vh; }
+
+.dashboard-nav {
+    background: #800000;
+    color: white;
+    padding: 1rem 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.navbar h2 { color: var(--cit-gold); }
+.dashboard-content { padding: 40px 8%; }
 
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.user-greeting { font-weight: bold; }
-
-.logout-btn {
-    padding: 8px 16px; 
-    border-radius: 4px; 
-    border: none; 
-    cursor: pointer; 
-    background: white; 
-    color: var(--cit-maroon); 
-    font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-.logout-btn:hover { background-color: #f3f4f6; }
-
-.dashboard-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: white;
+.welcome-banner {
+    background: #fff;
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-.dashboard-header {
-    color: var(--cit-maroon);
-    margin-bottom: 1rem;
-}
-
-.appointments-card {
-    margin-top: 2rem; 
-    padding: 2rem; 
-    background: var(--bg-light); 
-    border-radius: 8px; 
-    border-left: 5px solid var(--cit-gold);
-}
-
-.empty-state {
-    color: var(--text-muted); 
-    margin-top: 10px;
-}
-
-/* Add these to the bottom of Home.css */
-
-.nav-link {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.nav-link:hover {
-    color: var(--cit-gold);
-}
-
-.nav-btn {
-    padding: 8px 16px;
-    background-color: var(--cit-gold);
-    color: var(--cit-maroon);
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-.nav-btn:hover {
-    background-color: #e59a22;
-}
-
-.landing-content {
-    text-align: center;
-    padding: 4rem 0;
-}
-
-.landing-title {
-    color: var(--cit-maroon);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.landing-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-}
-
-.landing-actions {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
 
-.custom-btn {
-    width: auto;
-    padding: 0.875rem 2.5rem;
-    margin-top: 0;
+.table-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.btn-secondary {
-    background-color: var(--cit-gold);
-    color: var(--cit-maroon);
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+.appointment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.appointment-table th {
+    text-align: left;
+    padding: 15px;
+    background: #f9f9f9;
+    color: #800000;
+    border-bottom: 2px solid #eee;
+}
+
+.appointment-table td { padding: 15px; border-bottom: 1px solid #eee; }
+
+/* Status Pills */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    text-transform: uppercase;
 }
+.status-pill.pending { background: #fff4e5; color: #b45d00; }
+.status-pill.approved { background: #e7f3ef; color: #0d6832; }
 
-.btn-secondary:hover {
-    background-color: #e59a22;
-}
+/* --- BUTTONS --- */
+.btn-gold { background: #FFD700; color: #800000; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+.btn-maroon { background: #800000; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; }
+.btn-outline { background: transparent; border: 2px solid white; color: white; padding: 12px 25px; border-radius: 50px; cursor: pointer; margin-left: 15px; }
+.btn-text { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 5px 15px; border-radius: 4px; cursor: pointer; margin-left: 10px; }
