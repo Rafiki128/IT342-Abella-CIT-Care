@@ -12,7 +12,7 @@ public class ServiceEntity {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name; // e.g., "Medical Clinic" or "Guidance Counseling" [cite: 66, 67]
+    private String name;
 
     private String description;
 

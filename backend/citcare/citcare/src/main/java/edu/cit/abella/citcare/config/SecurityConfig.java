@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import java.util.List;
 
+//Refactoring 2: The Proxy Pattern (Security)
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -33,7 +34,7 @@ public class SecurityConfig {
                 return authCors;
             }))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll() // This fixes your 403 error
+                .requestMatchers("/api/**").permitAll() 
                 .anyRequest().authenticated()
             );
 
