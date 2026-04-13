@@ -1,10 +1,15 @@
 package edu.cit.abella.citcare.controller;
 
 import edu.cit.abella.citcare.entity.User;
+import edu.cit.abella.citcare.repository.UserRepository;
 import edu.cit.abella.citcare.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -18,6 +23,8 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, String> payload) {
@@ -42,6 +49,24 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.status(401).body(buildErrorResponse("AUTH-001", "Invalid credentials"));
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getMe(@AuthenticationPrincipal OAuth2User principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(buildErrorResponse("AUTH-002", "No active session"));
+        }
+
+        // Google uses 'email', but sometimes 'preferred_username'
+        String email = principal.getAttribute("email");
+        if (email == null) email = principal.getAttribute("preferred_username");
+
+        // Fetch the real user record from Supabase using the email
+        return userRepository.findByEmail(email)
+                .map(user -> ResponseEntity.ok(buildSuccessResponse(user)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(buildErrorResponse("USER-001", "User not found in database")));
     }
 
     // Helper methods to match SDD JSON format
