@@ -1,4 +1,4 @@
-package edu.cit.abella.citcare.dto;
+package edu.cit.abella.citcare.appointments;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -1,7 +1,6 @@
-package edu.cit.abella.citcare.controller;
+package edu.cit.abella.citcare.services;
 
 import edu.cit.abella.citcare.entity.ServiceEntity;
-import edu.cit.abella.citcare.service.ServiceService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

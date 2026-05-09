@@ -1,6 +1,5 @@
-package edu.cit.abella.citcare.service;
+package edu.cit.abella.citcare.appointments;
 
-import edu.cit.abella.citcare.dto.AppointmentRequest;
 import edu.cit.abella.citcare.entity.Appointment;
 import edu.cit.abella.citcare.entity.User;
 import edu.cit.abella.citcare.entity.ServiceEntity;

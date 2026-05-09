@@ -1,6 +1,5 @@
-package edu.cit.abella.citcare.controller;
+package edu.cit.abella.citcare.admin;
 
-import edu.cit.abella.citcare.dto.RoleUpdateRequest;
 import edu.cit.abella.citcare.entity.User;
 import edu.cit.abella.citcare.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

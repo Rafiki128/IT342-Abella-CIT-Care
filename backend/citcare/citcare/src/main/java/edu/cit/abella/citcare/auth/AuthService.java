@@ -1,4 +1,4 @@
-package edu.cit.abella.citcare.service;
+package edu.cit.abella.citcare.auth;
 
 import edu.cit.abella.citcare.entity.User;
 import edu.cit.abella.citcare.repository.UserRepository;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BookingModal from './components/BookingModal';
+import BookingModal from '../appointments/BookingModal';
 import './Home.css';
 
 const Home = () => {

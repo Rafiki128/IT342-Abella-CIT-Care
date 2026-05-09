@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Login';
-import Register from './Register';
-import Home from './Home';
-import AuthSuccess from './components/AuthSuccess';
+import Login from './features/auth/Login';
+import Register from './features/auth/Register';
+import Home from './features/home/Home';
+import AuthSuccess from './features/auth/AuthSuccess';
 
 function App() {
   return (
