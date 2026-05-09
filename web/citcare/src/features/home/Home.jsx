@@ -3,34 +3,37 @@ import { useNavigate } from 'react-router-dom';
 import BookingModal from '../appointments/BookingModal';
 import './Home.css';
 
+const getStoredUser = () => {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
+};
+
 const Home = () => {
-    const [user, setUser] = useState(null);
+    const [user] = useState(getStoredUser);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [appointments, setAppointments] = useState([]);
     const [services, setServices] = useState([]);
     const [formData, setFormData] = useState({ serviceId: '', appointmentDate: '', appointmentTime: '', reason: '', office: '' });
     const navigate = useNavigate();
 
+    const loadUserAppointments = async (userId) => {
+        try {
+            const res = await fetch(`http://localhost:8080/api/appointments/student/${userId}`);
+            if (res.ok) return await res.json();
+        } catch (err) { console.error(err); }
+        return [];
+    };
+
     useEffect(() => {
-        const userData = localStorage.getItem('user');
-        if (userData) {
-            const parsedUser = JSON.parse(userData);
-            setUser(parsedUser);
-            fetchUserAppointments(parsedUser.id);
+        if (user) {
+            loadUserAppointments(user.id).then(setAppointments);
         }
         
         fetch('http://localhost:8080/api/services')
             .then(res => res.json())
             .then(data => setServices(data))
             .catch(() => console.log("Backend offline"));
-    }, []);
-
-    const fetchUserAppointments = async (userId) => {
-        try {
-            const res = await fetch(`http://localhost:8080/api/appointments/student/${userId}`);
-            if (res.ok) setAppointments(await res.json());
-        } catch (err) { console.error(err); }
-    };
+    }, [user]);
 
     const handleLogout = () => {
         localStorage.clear();
@@ -49,7 +52,7 @@ const Home = () => {
         if (res.ok) {
             alert("Booking Successful!");
             setIsModalOpen(false);
-            fetchUserAppointments(user.id);
+            setAppointments(await loadUserAppointments(user.id));
         }
     };
 

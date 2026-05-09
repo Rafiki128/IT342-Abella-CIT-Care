@@ -31,7 +31,7 @@ const Login = () => {
             } else {
                 setMessage({ text: data.error?.message || 'Invalid credentials.', type: 'error' });
             }
-        } catch (error) {
+        } catch {
             setMessage({ text: 'Server error. Make sure the backend is running.', type: 'error' });
         }
     };
