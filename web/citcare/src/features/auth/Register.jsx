@@ -31,7 +31,7 @@ const Register = () => {
             } else {
                 setMessage({ text: data.error?.message || 'Registration failed.', type: 'error' });
             }
-        } catch (error) {
+        } catch {
             setMessage({ text: 'Server error. Make sure the backend is running.', type: 'error' });
         }
     };
