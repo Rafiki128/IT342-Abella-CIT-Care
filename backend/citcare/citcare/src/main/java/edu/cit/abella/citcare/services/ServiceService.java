@@ -1,4 +1,4 @@
-package edu.cit.abella.citcare.service;
+package edu.cit.abella.citcare.services;
 
 import edu.cit.abella.citcare.entity.ServiceEntity;
 import edu.cit.abella.citcare.repository.ServiceRepository;

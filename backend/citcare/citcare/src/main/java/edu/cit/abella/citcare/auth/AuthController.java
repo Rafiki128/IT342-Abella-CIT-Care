@@ -1,15 +1,13 @@
-package edu.cit.abella.citcare.controller;
+package edu.cit.abella.citcare.auth;
 
 import edu.cit.abella.citcare.entity.User;
 import edu.cit.abella.citcare.repository.UserRepository;
-import edu.cit.abella.citcare.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.time.Instant;
 import java.util.HashMap;

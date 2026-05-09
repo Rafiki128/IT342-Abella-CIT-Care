@@ -1,6 +1,6 @@
 package edu.cit.abella.citcare.config;
 
-import edu.cit.abella.citcare.service.CustomOAuth2UserService;
+import edu.cit.abella.citcare.auth.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

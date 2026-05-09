@@ -1,8 +1,6 @@
-package edu.cit.abella.citcare.controller;
+package edu.cit.abella.citcare.appointments;
 
-import edu.cit.abella.citcare.dto.AppointmentRequest;
 import edu.cit.abella.citcare.entity.Appointment;
-import edu.cit.abella.citcare.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
