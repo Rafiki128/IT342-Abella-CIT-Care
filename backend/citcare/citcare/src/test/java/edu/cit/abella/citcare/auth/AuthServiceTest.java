@@ -27,7 +27,7 @@ class AuthServiceTest {
     private AuthService authService;
 
     @Test
-    void registerUserCreatesEncodedUserWhenEmailIsAvailable() {
+    void registerUserCreatesEncodedNewUserWhenEmailIsAvailable() {
         when(userRepository.existsByEmail("student@cit.edu")).thenReturn(false);
         when(passwordEncoder.encode("secret")).thenReturn("encoded-secret");
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -37,7 +37,7 @@ class AuthServiceTest {
         assertEquals("student@cit.edu", user.getEmail());
         assertEquals("encoded-secret", user.getPasswordHash());
         assertEquals("Student User", user.getFullName());
-        assertEquals("STUDENT", user.getRole());
+        assertEquals("NEW", user.getRole());
         verify(userRepository).save(any(User.class));
     }
 
@@ -50,6 +50,30 @@ class AuthServiceTest {
 
         assertEquals("Email already registered", error.getMessage());
         verify(userRepository, never()).save(any(User.class));
+    }
+
+    @Test
+    void registerUserIgnoresRequestedStaffRoleAndCreatesNewUser() {
+        when(userRepository.existsByEmail("guide@cit.edu")).thenReturn(false);
+        when(passwordEncoder.encode("secret")).thenReturn("encoded-secret");
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        User user = authService.registerUser("guide@cit.edu", "secret", "Guidance Staff", "guidance_staff");
+
+        assertEquals("NEW", user.getRole());
+        verify(userRepository).save(any(User.class));
+    }
+
+    @Test
+    void registerUserIgnoresRequestedAdminRoleAndCreatesNewUser() {
+        when(userRepository.existsByEmail("admin-request@cit.edu")).thenReturn(false);
+        when(passwordEncoder.encode("secret")).thenReturn("encoded-secret");
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        User user = authService.registerUser("admin-request@cit.edu", "secret", "Admin Request", "ADMIN");
+
+        assertEquals("NEW", user.getRole());
+        verify(userRepository).save(any(User.class));
     }
 
     @Test

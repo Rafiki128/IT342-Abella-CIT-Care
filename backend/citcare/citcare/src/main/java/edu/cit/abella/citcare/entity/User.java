@@ -25,7 +25,7 @@ public class User {
     private String fullName;
 
     @Column(nullable = false)
-    private String role; // STUDENT or STAFF
+    private String role; // NEW, STUDENT, MEDICAL_STAFF, GUIDANCE_STAFF, or ADMIN
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -35,6 +35,9 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
+        if (this.role == null || this.role.isBlank()) {
+            this.role = "NEW";
+        }
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -58,7 +61,7 @@ public class User {
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
     public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public void setRole(String role) { this.role = role == null ? null : role.trim().toUpperCase(); }
     public List<Appointment> getAppointments() { return appointments; }
     public void setAppointments(List<Appointment> appointments) { this.appointments = appointments; }
 }

@@ -9,7 +9,7 @@ const BookingModal = ({ isOpen, onClose, services, formData, handleInputChange, 
             <div className="modal-content">
                 <div className="modal-header">
                     <div className="header-title">
-                        <span className="icon">📅</span>
+                        <span className="icon">C</span>
                         <div>
                             <h3>Schedule Appointment</h3>
                             <p>Choose your preferred date and time</p>

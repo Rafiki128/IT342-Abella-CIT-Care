@@ -4,6 +4,8 @@ import Login from './features/auth/Login';
 import Register from './features/auth/Register';
 import Home from './features/home/Home';
 import AuthSuccess from './features/auth/AuthSuccess';
+import AdminDashboard from './AdminDashboard';
+import StaffDashboard from './StaffDashboard';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/auth-success" element={<AuthSuccess />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/staff" element={<StaffDashboard />} />
                 
         {/* If a user types a random URL, send them back to Home */}
         <Route path="*" element={<Navigate to="/" replace />} />

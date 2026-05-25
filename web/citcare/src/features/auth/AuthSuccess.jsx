@@ -16,9 +16,9 @@ const AuthSuccess = () => {
                     // 2. Save the real data (matching your manual login format)
                     localStorage.setItem('accessToken', response.data.accessToken);
                     localStorage.setItem('user', JSON.stringify(response.data.user));
-                    
-                    // 3. Go home!
-                    navigate('/');
+
+                    const isStaff = ['MEDICAL_STAFF', 'GUIDANCE_STAFF'].includes(response.data.user.role);
+                    navigate(response.data.user.role === 'ADMIN' ? '/admin' : isStaff ? '/staff' : '/');
                 } else {
                     console.error("Auth response failed", response);
                     navigate('/login');

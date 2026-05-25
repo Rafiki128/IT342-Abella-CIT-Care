@@ -74,8 +74,12 @@ class AppointmentServiceTest {
     @Test
     void approveAppointmentMarksAppointmentApprovedAndAssignsStaff() {
         Appointment appointment = new Appointment();
+        ServiceEntity service = new ServiceEntity();
+        service.setName("Medical Clinic");
+        appointment.setService(service);
         User staff = new User();
         staff.setId(5L);
+        staff.setRole("MEDICAL_STAFF");
         when(appointmentRepository.findById(10L)).thenReturn(Optional.of(appointment));
         when(userRepository.findById(5L)).thenReturn(Optional.of(staff));
         when(appointmentRepository.save(appointment)).thenReturn(appointment);
@@ -98,5 +102,51 @@ class AppointmentServiceTest {
         assertEquals("REJECTED", result.getStatus());
         assertEquals("Unavailable", result.getRejectionReason());
         assertNotNull(result.getRejectedAt());
+    }
+
+    @Test
+    void getStaffAppointmentsOnlyReturnsAppointmentsForStaffService() {
+        User staff = new User();
+        staff.setId(5L);
+        staff.setRole("GUIDANCE_STAFF");
+
+        ServiceEntity guidance = new ServiceEntity();
+        guidance.setName("Guidance Office");
+        Appointment guidanceAppointment = new Appointment();
+        guidanceAppointment.setService(guidance);
+
+        ServiceEntity medical = new ServiceEntity();
+        medical.setName("Medical Clinic");
+        Appointment medicalAppointment = new Appointment();
+        medicalAppointment.setService(medical);
+
+        when(userRepository.findById(5L)).thenReturn(Optional.of(staff));
+        when(appointmentRepository.findAll()).thenReturn(List.of(guidanceAppointment, medicalAppointment));
+
+        List<Appointment> result = appointmentService.getStaffAppointments(5L);
+
+        assertEquals(1, result.size());
+        assertSame(guidanceAppointment, result.get(0));
+    }
+
+    @Test
+    void approveAppointmentRejectsWrongStaffService() {
+        ServiceEntity service = new ServiceEntity();
+        service.setName("Guidance Office");
+        Appointment appointment = new Appointment();
+        appointment.setService(service);
+
+        User staff = new User();
+        staff.setId(5L);
+        staff.setRole("MEDICAL_STAFF");
+
+        when(appointmentRepository.findById(10L)).thenReturn(Optional.of(appointment));
+        when(userRepository.findById(5L)).thenReturn(Optional.of(staff));
+
+        RuntimeException error = assertThrows(RuntimeException.class,
+                () -> appointmentService.approveAppointment(10L, 5L));
+
+        assertEquals("This appointment belongs to another service", error.getMessage());
+        verify(appointmentRepository, never()).save(any(Appointment.class));
     }
 }

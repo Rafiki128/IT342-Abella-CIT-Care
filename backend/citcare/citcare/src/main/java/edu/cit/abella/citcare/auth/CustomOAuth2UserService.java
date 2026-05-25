@@ -30,7 +30,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 User newUser = new User();
                 newUser.setEmail(email);
                 newUser.setFullName(fullName);
-                newUser.setRole("STUDENT"); 
+                newUser.setRole("NEW");
                 newUser.setPasswordHash("OAUTH2_PROVIDED"); // No password needed for Google users
                 userRepository.save(newUser);
             }

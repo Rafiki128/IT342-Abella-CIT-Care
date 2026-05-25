@@ -1,0 +1,298 @@
+.admin-page {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+}
+
+.admin-nav {
+    align-items: center;
+    background: var(--cit-maroon);
+    color: white;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 1rem 8%;
+}
+
+.admin-brand {
+    color: var(--cit-gold);
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.admin-nav span {
+    display: block;
+    font-size: 0.875rem;
+    margin-top: 0.2rem;
+    opacity: 0.86;
+}
+
+.admin-nav-actions {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.admin-content {
+    padding: 40px 8%;
+}
+
+.admin-header {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.35rem;
+}
+
+.admin-kicker {
+    color: var(--cit-maroon);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+}
+
+.admin-header h1 {
+    color: var(--text-dark);
+    font-size: 2.25rem;
+}
+
+.admin-primary-btn,
+.admin-secondary-btn,
+.admin-text-btn {
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+    padding: 0.72rem 1rem;
+}
+
+.admin-primary-btn {
+    background: var(--cit-gold);
+    border: none;
+    color: var(--cit-maroon-dark);
+}
+
+.admin-secondary-btn {
+    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--cit-maroon);
+}
+
+.admin-text-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    color: white;
+}
+
+.admin-message {
+    border-radius: 8px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding: 0.875rem 1rem;
+}
+
+.admin-message.success {
+    background: #e8f7ef;
+    color: #0d6832;
+}
+
+.admin-message.error {
+    background: #fdecec;
+    color: #a30f0f;
+}
+
+.admin-metrics {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 1.35rem;
+}
+
+.admin-metric,
+.admin-panel,
+.admin-denied,
+.admin-loading {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-metric {
+    padding: 1.15rem;
+}
+
+.admin-metric span {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.admin-metric strong {
+    color: var(--cit-maroon);
+    display: block;
+    font-size: 2rem;
+    margin-top: 0.35rem;
+}
+
+.admin-panel {
+    padding: 1.5rem;
+}
+
+.admin-panel-header {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.admin-panel-header h2 {
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+.admin-panel-header input {
+    background: #fbfcfe;
+    border: 1px solid #d7dce5;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    max-width: 280px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+}
+
+.admin-panel-header input:focus,
+.admin-table select:focus {
+    border-color: var(--cit-gold);
+    box-shadow: 0 0 0 3px rgba(246, 184, 63, 0.22);
+    outline: none;
+}
+
+.admin-table-wrap {
+    overflow-x: auto;
+}
+
+.admin-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.admin-table th {
+    background: #f9fafc;
+    color: var(--cit-maroon);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    padding: 0.9rem;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.admin-table td {
+    border-top: 1px solid #eef1f5;
+    padding: 0.95rem 0.9rem;
+    vertical-align: middle;
+}
+
+.admin-table select {
+    background: white;
+    border: 1px solid #d7dce5;
+    border-radius: 8px;
+    min-width: 170px;
+    padding: 0.65rem 0.75rem;
+}
+
+.admin-role {
+    border-radius: 999px;
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 900;
+    padding: 0.35rem 0.7rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.admin-role.student {
+    background: #eef2ff;
+    color: #3730a3;
+}
+
+.admin-role.new {
+    background: #f2f4f7;
+    color: #475467;
+}
+
+.admin-role.medical_staff {
+    background: #e7f5fb;
+    color: #075b80;
+}
+
+.admin-role.guidance_staff {
+    background: #f1e9ff;
+    color: #5b2591;
+}
+
+.admin-role.staff {
+    background: #fff4e5;
+    color: #9a4d00;
+}
+
+.admin-role.admin {
+    background: #e8f7ef;
+    color: #0d6832;
+}
+
+.admin-empty {
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.admin-denied,
+.admin-loading {
+    margin: 6rem auto;
+    max-width: 520px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.admin-denied h1 {
+    color: var(--cit-maroon);
+    margin-bottom: 0.75rem;
+}
+
+.admin-denied p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .admin-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-nav,
+    .admin-header,
+    .admin-panel-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-nav-actions {
+        justify-content: flex-start;
+    }
+
+    .admin-content {
+        padding: 28px 5%;
+    }
+
+    .admin-metrics {
+        grid-template-columns: 1fr;
+    }
+}

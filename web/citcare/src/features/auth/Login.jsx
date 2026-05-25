@@ -11,7 +11,6 @@ const Login = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // 1. Existing Manual Login Handler
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -25,9 +24,11 @@ const Login = () => {
             if (response.ok && data.success) {
                 localStorage.setItem('accessToken', data.data.accessToken);
                 localStorage.setItem('user', JSON.stringify(data.data.user));
-                
+
+                const isStaff = ['MEDICAL_STAFF', 'GUIDANCE_STAFF'].includes(data.data.user.role);
+                const redirectTo = data.data.user.role === 'ADMIN' ? '/admin' : isStaff ? '/staff' : '/';
                 setMessage({ text: `Welcome back, ${data.data.user.fullName}! Redirecting...`, type: 'success' });
-                setTimeout(() => navigate('/'), 1000);
+                setTimeout(() => navigate(redirectTo), 700);
             } else {
                 setMessage({ text: data.error?.message || 'Invalid credentials.', type: 'error' });
             }
@@ -36,10 +37,8 @@ const Login = () => {
         }
     };
 
-    // 2. New Google Login Handler
     const handleGoogleLogin = () => {
-        // Redirects the browser directly to your Spring Boot Google endpoint
-        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+        window.location.href = 'http://localhost:8080/oauth2/authorization/google';
     };
 
     return (
@@ -48,17 +47,17 @@ const Login = () => {
                 <h1>CIT-Care</h1>
                 <p>Your centralized campus appointment and clinic management system.</p>
             </div>
-            
+
             <div className="login-content">
                 <div className="login-header">
                     <h2>Welcome Back</h2>
                     <p>Please enter your details to sign in.</p>
                 </div>
-                
+
                 {message.text && (
                     <div className={`message ${message.type}`}>{message.text}</div>
                 )}
-                
+
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label htmlFor="email">Email Address</label>
@@ -66,26 +65,21 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="••••••••" required />
+                        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" required />
                     </div>
                     <button type="submit" className="btn-primary">Sign In</button>
                 </form>
-                
-                {/* 3. Added Divider and Google Button */}
-                <div className="divider" style={{ margin: '20px 0', textAlign: 'center', color: '#666', fontSize: '0.9rem' }}>
-                    <span>— OR —</span>
+
+                <div className="auth-divider">
+                    <span>OR</span>
                 </div>
 
-                <button 
-                    type="button" 
-                    onClick={handleGoogleLogin} 
-                    className="btn-outline" 
-                    style={{ width: '100%', borderColor: '#DB4437', color: '#DB4437', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', padding: '10px', background: 'white', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}>
+                <button type="button" onClick={handleGoogleLogin} className="btn-google">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" width="20" />
                     Sign in with Google
                 </button>
-                
-                <p className="toggle-link" style={{ marginTop: '20px' }}>
+
+                <p className="toggle-link">
                     Don't have an account? <Link to="/register">Create one here</Link>
                 </p>
             </div>

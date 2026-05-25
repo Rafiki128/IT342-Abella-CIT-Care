@@ -67,7 +67,7 @@ const Home = () => {
                             <h1>Compassionate Care, <br/><span>Modern Solutions</span></h1>
                             <p>Access quality healthcare and professional guidance counseling services all in one place. Book appointments and get the support you need.</p>
                             <div className="hero-btns">
-                                <button className="btn-gold" onClick={() => navigate('/login')}>Book Appointment Now →</button>
+                                <button className="btn-gold" onClick={() => navigate('/login')}>Book Appointment Now</button>
                                 <button className="btn-outline">Learn More</button>
                             </div>
                             <div className="hero-stats">
@@ -84,13 +84,13 @@ const Home = () => {
                     <p>Choose the service you need and select your preferred slot at your convenience.</p>
                     <div className="service-grid">
                         <div className="service-card">
-                            <div className="icon-med">🩺</div>
+                            <div className="service-icon medical">M</div>
                             <h3>Medical Clinic</h3>
                             <p>Check-ups, first aid, and medical consultations.</p>
                             <button className="btn-maroon" onClick={() => navigate('/login')}>Book Now</button>
                         </div>
                         <div className="service-card">
-                            <div className="icon-guidance">🧠</div>
+                            <div className="service-icon guidance">G</div>
                             <h3>Guidance Office</h3>
                             <p>Mental health support and career counseling.</p>
                             <button className="btn-maroon" onClick={() => navigate('/login')}>Book Now</button>
@@ -107,6 +107,12 @@ const Home = () => {
             <nav className="dashboard-nav">
                 <div className="nav-brand">CIT-Care</div>
                 <div className="nav-user">
+                    {user.role === 'ADMIN' && (
+                        <button onClick={() => navigate('/admin')} className="btn-text">Admin</button>
+                    )}
+                    {['MEDICAL_STAFF', 'GUIDANCE_STAFF'].includes(user.role) && (
+                        <button onClick={() => navigate('/staff')} className="btn-text">Staff</button>
+                    )}
                     <span>{user.fullName}</span>
                     <button onClick={handleLogout} className="btn-text">Logout</button>
                 </div>

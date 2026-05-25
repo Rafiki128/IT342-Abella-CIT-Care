@@ -6,8 +6,7 @@ const Register = () => {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
-        password: '',
-        role: 'STUDENT'
+        password: ''
     });
     const [message, setMessage] = useState({ text: '', type: '' });
 
@@ -27,7 +26,7 @@ const Register = () => {
 
             if (response.ok && data.success) {
                 setMessage({ text: 'Registration successful! You can now log in.', type: 'success' });
-                setFormData({ fullName: '', email: '', password: '', role: 'STUDENT' });
+                setFormData({ fullName: '', email: '', password: '' });
             } else {
                 setMessage({ text: data.error?.message || 'Registration failed.', type: 'error' });
             }
@@ -46,7 +45,7 @@ const Register = () => {
             <div className="register-content">
                 <div className="register-header">
                     <h2>Create Account</h2>
-                    <p>Register as a student or staff member.</p>
+                    <p>Create a student account. Staff access is assigned by an administrator.</p>
                 </div>
                 
                 {message.text && (
@@ -65,13 +64,6 @@ const Register = () => {
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Create a strong password" required />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="role">Role</label>
-                        <select id="role" name="role" value={formData.role} onChange={handleChange}>
-                            <option value="STUDENT">Student</option>
-                            <option value="STAFF">Staff / Faculty</option>
-                        </select>
                     </div>
                     <button type="submit" className="btn-primary">Register</button>
                 </form>
