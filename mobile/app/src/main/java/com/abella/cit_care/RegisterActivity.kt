@@ -15,6 +15,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register)
+        animatePageIn()
 
         val etName = findViewById<EditText>(R.id.etName)
         val etEmail = findViewById<EditText>(R.id.etEmail)
@@ -44,12 +45,13 @@ class RegisterActivity : AppCompatActivity() {
             )
             ApiClient.instance.register(request).enqueue(object : Callback<AuthResponse> {
                 override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@RegisterActivity, "Registration Successful!", Toast.LENGTH_SHORT).show()
+                    val body = response.body()
+                    if (response.isSuccessful && body?.success == true) {
+                        Toast.makeText(this@RegisterActivity, "Registration successful! Redirecting to login...", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this@RegisterActivity, "Registration Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@RegisterActivity, body?.error?.message ?: "Registration Failed", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -58,5 +60,11 @@ class RegisterActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun animatePageIn() {
+        window.decorView.alpha = 0f
+        window.decorView.translationY = 18f
+        window.decorView.animate().alpha(1f).translationY(0f).setDuration(280).start()
     }
 }
