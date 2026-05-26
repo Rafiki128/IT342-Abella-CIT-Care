@@ -10,6 +10,7 @@ class LandingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing)
+        animatePageIn()
 
         findViewById<Button>(R.id.btnGoToLogin).setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -18,5 +19,11 @@ class LandingActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tvGoToRegister).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+    }
+
+    private fun animatePageIn() {
+        window.decorView.alpha = 0f
+        window.decorView.translationY = 18f
+        window.decorView.animate().alpha(1f).translationY(0f).setDuration(280).start()
     }
 }
