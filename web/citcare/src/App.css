@@ -1,3 +1,28 @@
 #root {
   min-height: 100vh;
 }
+
+.auth-success-page {
+  align-items: center;
+  animation: page-in var(--motion-slow) var(--ease-soft) both;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-height: 100vh;
+  padding: 1rem;
+  text-align: center;
+}
+
+.auth-success-page h2 {
+  animation: panel-in var(--motion-slow) var(--ease-soft) both;
+  color: var(--cit-maroon);
+  font-size: 1.8rem;
+}
+
+.auth-success-page p {
+  animation: panel-in var(--motion-slow) var(--ease-soft) 80ms both;
+  color: var(--text-muted);
+  line-height: 1.6;
+}

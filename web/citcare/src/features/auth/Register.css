@@ -1,10 +1,12 @@
 .register-wrapper {
+    animation: page-in var(--motion-slow) var(--ease-soft) both;
     display: grid;
     grid-template-columns: minmax(320px, 0.92fr) minmax(380px, 1fr);
     min-height: 100vh;
 }
 
 .register-banner {
+    animation: panel-in var(--motion-slow) var(--ease-soft) both;
     background:
         linear-gradient(135deg, rgba(95, 14, 40, 0.96), rgba(138, 21, 56, 0.88)),
         url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=1600&auto=format&fit=crop');
@@ -32,6 +34,7 @@
 }
 
 .register-content {
+    animation: panel-in var(--motion-slow) var(--ease-soft) 90ms both;
     align-self: center;
     background: var(--surface);
     border: 1px solid var(--border);

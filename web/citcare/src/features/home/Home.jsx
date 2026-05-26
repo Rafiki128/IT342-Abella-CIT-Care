@@ -1,166 +1,150 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import BookingModal from '../appointments/BookingModal';
+import React, { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { getStoredUser } from '../../components/UniversalDashboard';
 import './Home.css';
-
-const getStoredUser = () => {
-    const userData = localStorage.getItem('user');
-    return userData ? JSON.parse(userData) : null;
-};
 
 const Home = () => {
     const [user] = useState(getStoredUser);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [appointments, setAppointments] = useState([]);
-    const [services, setServices] = useState([]);
-    const [formData, setFormData] = useState({ serviceId: '', appointmentDate: '', appointmentTime: '', reason: '', office: '' });
     const navigate = useNavigate();
 
-    const loadUserAppointments = async (userId) => {
-        try {
-            const res = await fetch(`http://localhost:8080/api/appointments/student/${userId}`);
-            if (res.ok) return await res.json();
-        } catch (err) { console.error(err); }
-        return [];
-    };
-
-    useEffect(() => {
-        if (user) {
-            loadUserAppointments(user.id).then(setAppointments);
-        }
-        
-        fetch('http://localhost:8080/api/services')
-            .then(res => res.json())
-            .then(data => setServices(data))
-            .catch(() => console.log("Backend offline"));
-    }, [user]);
-
-    const handleLogout = () => {
-        localStorage.clear();
-        window.location.reload();
-    };
-
-    const handleInputChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    const handleBooking = async (e) => {
-        e.preventDefault();
-        const res = await fetch('http://localhost:8080/api/appointments/book', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...formData, studentId: user.id })
-        });
-        if (res.ok) {
-            alert("Booking Successful!");
-            setIsModalOpen(false);
-            setAppointments(await loadUserAppointments(user.id));
-        }
-    };
-
-    // --- VIEW 1: GUEST MODE (Marketing Design) ---
-    if (!user) {
-        return (
-            <div className="home-page guest-mode">
-                <header className="hero-section">
-                    <div className="hero-overlay">
-                        <div className="hero-container">
-                            <span className="badge">YOUR HEALTH & WELLNESS PARTNER</span>
-                            <h1>Compassionate Care, <br/><span>Modern Solutions</span></h1>
-                            <p>Access quality healthcare and professional guidance counseling services all in one place. Book appointments and get the support you need.</p>
-                            <div className="hero-btns">
-                                <button className="btn-gold" onClick={() => navigate('/login')}>Book Appointment Now</button>
-                                <button className="btn-outline">Learn More</button>
-                            </div>
-                            <div className="hero-stats">
-                                <div className="stat"><h3>10K+</h3><p>Patients Served</p></div>
-                                <div className="stat"><h3>50+</h3><p>Healthcare Professionals</p></div>
-                                <div className="stat"><h3>98%</h3><p>Satisfaction Rate</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-
-                <section className="services-preview">
-                    <h2>Book Your Appointment</h2>
-                    <p>Choose the service you need and select your preferred slot at your convenience.</p>
-                    <div className="service-grid">
-                        <div className="service-card">
-                            <div className="service-icon medical">M</div>
-                            <h3>Medical Clinic</h3>
-                            <p>Check-ups, first aid, and medical consultations.</p>
-                            <button className="btn-maroon" onClick={() => navigate('/login')}>Book Now</button>
-                        </div>
-                        <div className="service-card">
-                            <div className="service-icon guidance">G</div>
-                            <h3>Guidance Office</h3>
-                            <p>Mental health support and career counseling.</p>
-                            <button className="btn-maroon" onClick={() => navigate('/login')}>Book Now</button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        );
+    if (user) {
+        return <Navigate to="/dashboard" replace />;
     }
 
-    // --- VIEW 2: REGISTERED MODE (Simple Dashboard) ---
     return (
-        <div className="home-page user-mode">
-            <nav className="dashboard-nav">
-                <div className="nav-brand">CIT-Care</div>
-                <div className="nav-user">
-                    {user.role === 'ADMIN' && (
-                        <button onClick={() => navigate('/admin')} className="btn-text">Admin</button>
-                    )}
-                    {['MEDICAL_STAFF', 'GUIDANCE_STAFF'].includes(user.role) && (
-                        <button onClick={() => navigate('/staff')} className="btn-text">Staff</button>
-                    )}
-                    <span>{user.fullName}</span>
-                    <button onClick={handleLogout} className="btn-text">Logout</button>
+        <div className="home-page guest-mode">
+            <nav className="home-nav">
+                <div className="home-brand">
+                    <div className="home-logo">
+                        <img src="/cit-logo.png" alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                        <span>C</span>
+                    </div>
+                    <strong>CIT-Care</strong>
+                </div>
+                <div className="home-nav-actions">
+                    <button onClick={() => navigate('/login')}>Sign In</button>
+                    <button className="home-register-btn" onClick={() => navigate('/register')}>Register</button>
                 </div>
             </nav>
 
-            <div className="dashboard-content">
-                <div className="welcome-banner">
-                    <h1>Welcome Back, <span>{user.fullName}</span></h1>
-                    <button className="btn-gold" onClick={() => setIsModalOpen(true)}>+ New Appointment</button>
-                </div>
+            <main>
+                <section className="home-hero">
+                    <div className="home-hero-copy">
+                        <span className="home-badge">Campus Health & Wellness</span>
+                        <h1>Compassionate care for every CIT student.</h1>
+                        <p>Book clinic visits, request guidance support, and keep track of your appointments in one simple CIT-Care portal.</p>
+                        <div className="home-hero-actions">
+                            <button className="home-primary-btn" onClick={() => navigate('/login')}>Book Appointment</button>
+                            <button className="home-secondary-btn" onClick={() => navigate('/register')}>Create Account</button>
+                        </div>
+                    </div>
+                    <div className="home-hero-card" aria-label="CIT-Care appointment preview">
+                        <div className="home-visual-band">
+                            <div className="home-visual-logo">
+                                <img src="/cit-logo.png" alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                                <span>C</span>
+                            </div>
+                            <div>
+                                <strong>CIT-Care Portal</strong>
+                                <p>Clinic and guidance support</p>
+                            </div>
+                        </div>
+                        <div className="home-card-top">
+                            <span>Today</span>
+                            <strong>3 open services</strong>
+                        </div>
+                        <div className="home-hero-item">
+                            <span className="home-service-dot medical" />
+                            <div>
+                                <strong>Medical Clinic</strong>
+                                <p>Checkups, first aid, referrals</p>
+                            </div>
+                        </div>
+                        <div className="home-hero-item">
+                            <span className="home-service-dot guidance" />
+                            <div>
+                                <strong>Guidance Counseling</strong>
+                                <p>Mental health and academic support</p>
+                            </div>
+                        </div>
+                        <div className="home-callout">
+                            Need urgent support? Our staff can help route you to the right office.
+                        </div>
+                    </div>
+                </section>
 
-                <div className="table-container">
-                    <h3>Your Scheduled Appointments</h3>
-                    <table className="appointment-table">
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Location</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {appointments.length > 0 ? appointments.map(app => (
-                                <tr key={app.id}>
-                                    <td><strong>{app.service?.name}</strong></td>
-                                    <td>{app.appointmentDate}</td>
-                                    <td>{app.appointmentTime}</td>
-                                    <td>{app.office}</td>
-                                    <td><span className={`status-pill ${app.status.toLowerCase()}`}>{app.status}</span></td>
-                                </tr>
-                            )) : (
-                                <tr><td colSpan="5" className="empty">No appointments found.</td></tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                <section className="home-stats" aria-label="CIT-Care highlights">
+                    <div><strong>Fast</strong><span>Appointment requests</span></div>
+                    <div><strong>Secure</strong><span>Student account access</span></div>
+                    <div><strong>Unified</strong><span>Clinic and guidance services</span></div>
+                </section>
 
-            <BookingModal 
-                isOpen={isModalOpen} 
-                onClose={() => setIsModalOpen(false)}
-                services={services}
-                formData={formData}
-                handleInputChange={handleInputChange}
-                handleBooking={handleBooking}
-            />
+                <section className="home-services">
+                    <div className="home-section-heading">
+                        <span className="home-badge">Services</span>
+                        <h2>Choose the support you need</h2>
+                        <p>Start with the right office and manage your visit from your dashboard.</p>
+                    </div>
+                    <div className="home-service-grid">
+                        <article>
+                            <div className="home-service-icon home-service-icon-medical" aria-hidden="true" />
+                            <h3>Medical Clinic</h3>
+                            <p>General checkups, medical consultations, first aid, and health referrals.</p>
+                            <button onClick={() => navigate('/login')}>Book Medical Visit</button>
+                        </article>
+                        <article>
+                            <div className="home-service-icon home-service-icon-guidance" aria-hidden="true" />
+                            <h3>Guidance Office</h3>
+                            <p>Counseling, wellness support, academic guidance, and career conversations.</p>
+                            <button onClick={() => navigate('/login')}>Book Guidance Session</button>
+                        </article>
+                    </div>
+                </section>
+
+                <section className="home-process">
+                    <div className="home-section-heading">
+                        <span className="home-badge">How It Works</span>
+                        <h2>Get support in three steps</h2>
+                        <p>CIT-Care keeps the process simple from sign in to appointment updates.</p>
+                    </div>
+                    <div className="home-process-grid">
+                        <article>
+                            <span>1</span>
+                            <h3>Create your account</h3>
+                            <p>Register with your student details and wait for role approval if needed.</p>
+                        </article>
+                        <article>
+                            <span>2</span>
+                            <h3>Choose a service</h3>
+                            <p>Select medical clinic or guidance counseling and send your request.</p>
+                        </article>
+                        <article>
+                            <span>3</span>
+                            <h3>Track updates</h3>
+                            <p>View appointment status, approval notes, and upcoming schedules.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section className="home-support-strip">
+                    <div>
+                        <span className="home-badge">Need Help?</span>
+                        <h2>For urgent concerns, visit the clinic or guidance office directly.</h2>
+                    </div>
+                    <button onClick={() => navigate('/login')}>Open CIT-Care</button>
+                </section>
+            </main>
+
+            <footer className="home-footer">
+                <div>
+                    <strong>CIT-Care</strong>
+                    <span>Your trusted partner for campus healthcare and wellness.</span>
+                </div>
+                <div>
+                    <strong>Services</strong>
+                    <span>Medical Clinic &middot; Guidance Office &middot; Wellness Support</span>
+                </div>
+            </footer>
         </div>
     );
 };
