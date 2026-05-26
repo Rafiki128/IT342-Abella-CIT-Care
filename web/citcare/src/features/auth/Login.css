@@ -1,10 +1,12 @@
 .login-wrapper {
+    animation: page-in var(--motion-slow) var(--ease-soft) both;
     display: grid;
     grid-template-columns: minmax(320px, 0.92fr) minmax(380px, 1fr);
     min-height: 100vh;
 }
 
 .login-banner {
+    animation: panel-in var(--motion-slow) var(--ease-soft) both;
     background:
         linear-gradient(135deg, rgba(95, 14, 40, 0.96), rgba(138, 21, 56, 0.9)),
         url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600&auto=format&fit=crop');
@@ -32,6 +34,7 @@
 }
 
 .login-content {
+    animation: panel-in var(--motion-slow) var(--ease-soft) 90ms both;
     align-self: center;
     background: var(--surface);
     border: 1px solid var(--border);
@@ -129,6 +132,7 @@
 .btn-google:hover {
     border-color: var(--cit-gold);
     box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
 }
 
 .toggle-link {

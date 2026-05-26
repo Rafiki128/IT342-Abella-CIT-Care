@@ -1,5 +1,6 @@
 .modal-overlay {
     align-items: center;
+    animation: overlay-in var(--motion-med) ease both;
     background: rgba(17, 24, 39, 0.68);
     display: flex;
     inset: 0;
@@ -10,6 +11,7 @@
 }
 
 .modal-content {
+    animation: modal-in var(--motion-med) var(--ease-soft) both;
     background: white;
     border-radius: 8px;
     box-shadow: var(--shadow-md);
@@ -60,7 +62,13 @@
     font-size: 1.4rem;
     height: 38px;
     line-height: 1;
+    transition: background-color var(--motion-fast) ease, border-color var(--motion-fast) ease, transform var(--motion-fast) var(--ease-out);
     width: 38px;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
 }
 
 .booking-grid {

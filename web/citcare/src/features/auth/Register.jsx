@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
@@ -9,6 +9,7 @@ const Register = () => {
         password: ''
     });
     const [message, setMessage] = useState({ text: '', type: '' });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,8 +26,9 @@ const Register = () => {
             const data = await response.json();
 
             if (response.ok && data.success) {
-                setMessage({ text: 'Registration successful! You can now log in.', type: 'success' });
+                setMessage({ text: 'Registration successful! Redirecting to login...', type: 'success' });
                 setFormData({ fullName: '', email: '', password: '' });
+                setTimeout(() => navigate('/login'), 900);
             } else {
                 setMessage({ text: data.error?.message || 'Registration failed.', type: 'error' });
             }

@@ -17,8 +17,7 @@ const AuthSuccess = () => {
                     localStorage.setItem('accessToken', response.data.accessToken);
                     localStorage.setItem('user', JSON.stringify(response.data.user));
 
-                    const isStaff = ['MEDICAL_STAFF', 'GUIDANCE_STAFF'].includes(response.data.user.role);
-                    navigate(response.data.user.role === 'ADMIN' ? '/admin' : isStaff ? '/staff' : '/');
+                    navigate('/dashboard');
                 } else {
                     console.error("Auth response failed", response);
                     navigate('/login');
@@ -31,7 +30,7 @@ const AuthSuccess = () => {
     }, [navigate]);
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
+        <div className="auth-success-page">
             <h2>Verifying Google Account...</h2>
             <p>Please wait while we sync your CIT-Care profile.</p>
         </div>

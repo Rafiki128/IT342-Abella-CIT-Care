@@ -25,10 +25,8 @@ const Login = () => {
                 localStorage.setItem('accessToken', data.data.accessToken);
                 localStorage.setItem('user', JSON.stringify(data.data.user));
 
-                const isStaff = ['MEDICAL_STAFF', 'GUIDANCE_STAFF'].includes(data.data.user.role);
-                const redirectTo = data.data.user.role === 'ADMIN' ? '/admin' : isStaff ? '/staff' : '/';
                 setMessage({ text: `Welcome back, ${data.data.user.fullName}! Redirecting...`, type: 'success' });
-                setTimeout(() => navigate(redirectTo), 700);
+                setTimeout(() => navigate('/dashboard'), 700);
             } else {
                 setMessage({ text: data.error?.message || 'Invalid credentials.', type: 'error' });
             }
