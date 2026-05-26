@@ -6,6 +6,7 @@ import edu.cit.abella.citcare.entity.ServiceEntity;
 import edu.cit.abella.citcare.repository.AppointmentRepository;
 import edu.cit.abella.citcare.repository.ServiceRepository;
 import edu.cit.abella.citcare.repository.UserRepository;
+import edu.cit.abella.citcare.notifications.EmailNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,9 @@ public class AppointmentService {
     
     @Autowired
     private ServiceRepository ServiceRepository;
+
+    @Autowired
+    private EmailNotificationService emailNotificationService;
 
     public Appointment createAppointment(AppointmentRequest dto) {
         User student = userRepository.findById(dto.getStudentId())
@@ -71,7 +75,7 @@ public class AppointmentService {
         app.setApprovedAt(LocalDateTime.now());
         app.setRejectedAt(null);
         app.setRejectionReason(null);
-        return appointmentRepository.save(app);
+        return saveAndNotify(app);
     }
 
     public Appointment rejectAppointment(Long appointmentId, Long staffId, String reason) {
@@ -85,7 +89,40 @@ public class AppointmentService {
         app.setRejectionReason(reason == null || reason.isBlank() ? "Rejected by staff" : reason.trim());
         app.setRejectedAt(LocalDateTime.now());
         app.setApprovedAt(null);
-        return appointmentRepository.save(app);
+        return saveAndNotify(app);
+    }
+
+    public Appointment completeAppointment(Long appointmentId, Long staffId) {
+        Appointment app = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        User staff = getStaffUser(staffId);
+        ensureStaffCanManage(staff, app);
+
+        if (!"APPROVED".equals(app.getStatus())) {
+            throw new RuntimeException("Only confirmed appointments can be marked complete");
+        }
+
+        app.setStatus("COMPLETED");
+        app.setStaff(staff);
+        return saveAndNotify(app);
+    }
+
+    public Appointment cancelAppointment(Long appointmentId, Long staffId, String reason) {
+        Appointment app = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        User staff = getStaffUser(staffId);
+        ensureStaffCanManage(staff, app);
+
+        if (!"APPROVED".equals(app.getStatus())) {
+            throw new RuntimeException("Only confirmed appointments can be cancelled");
+        }
+
+        app.setStatus("REJECTED");
+        app.setStaff(staff);
+        app.setRejectionReason(reason == null || reason.isBlank() ? "Cancelled by staff" : reason.trim());
+        app.setRejectedAt(LocalDateTime.now());
+        app.setApprovedAt(null);
+        return saveAndNotify(app);
     }
 
     public Appointment rejectAppointment(Long appointmentId, String reason) {
@@ -124,6 +161,14 @@ public class AppointmentService {
             return serviceName.contains("guidance") || serviceName.contains("counsel");
         }
         return false;
+    }
+
+    private Appointment saveAndNotify(Appointment appointment) {
+        Appointment saved = appointmentRepository.save(appointment);
+        if (emailNotificationService != null) {
+            emailNotificationService.sendAppointmentUpdate(saved);
+        }
+        return saved;
     }
 
 }

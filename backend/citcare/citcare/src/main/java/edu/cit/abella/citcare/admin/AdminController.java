@@ -47,6 +47,84 @@ public class AdminController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/update-name/{userId}")
+    public ResponseEntity<?> updateUserName(
+            @PathVariable Long userId,
+            @RequestBody NameUpdateRequest nameRequest,
+            @RequestHeader(value = "X-User-Role", required = false) String requesterRole) {
+        return updateUser(userId, nameRequest, requesterRole);
+    }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable Long userId,
+            @RequestBody NameUpdateRequest updateRequest,
+            @RequestHeader(value = "X-User-Role", required = false) String requesterRole) {
+        if (!isAdmin(requesterRole)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(errorResponse("ADMIN-001", "Admin access required."));
+        }
+
+        String requestedName = updateRequest.getFullName() == null ? "" : updateRequest.getFullName().trim();
+        String requestedRole = updateRequest.getRole() == null ? null : updateRequest.getRole().trim().toUpperCase();
+
+        if (requestedName.isBlank() && requestedRole == null) {
+            return ResponseEntity.badRequest()
+                    .body(errorResponse("ADMIN-003", "Full name or role is required."));
+        }
+
+        if (updateRequest.getFullName() != null && requestedName.isBlank()) {
+            return ResponseEntity.badRequest()
+                    .body(errorResponse("ADMIN-003", "Full name is required."));
+        }
+
+        if (requestedRole != null && !VALID_ROLES.contains(requestedRole)) {
+            return ResponseEntity.badRequest()
+                    .body(errorResponse("ADMIN-002", "Role must be NEW, STUDENT, MEDICAL_STAFF, GUIDANCE_STAFF, or ADMIN."));
+        }
+
+        return userRepository.findById(userId)
+                .map(user -> {
+                    if (!requestedName.isBlank()) {
+                        user.setFullName(requestedName);
+                    }
+                    if (requestedRole != null) {
+                        user.setRole(requestedRole);
+                    }
+                    userRepository.save(user);
+                    return ResponseEntity.ok(successResponse(user, "User " + user.getFullName() + " was updated."));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<?> deleteUser(
+            @PathVariable Long userId,
+            @RequestHeader(value = "X-User-Role", required = false) String requesterRole,
+            @RequestHeader(value = "X-User-Id", required = false) Long requesterId) {
+        if (!isAdmin(requesterRole)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(errorResponse("ADMIN-001", "Admin access required."));
+        }
+
+        if (requesterId != null && requesterId.equals(userId)) {
+            return ResponseEntity.badRequest()
+                    .body(errorResponse("ADMIN-004", "You cannot delete your own admin account."));
+        }
+
+        return userRepository.findById(userId)
+                .map(user -> {
+                    userRepository.delete(user);
+                    Map<String, Object> response = new HashMap<>();
+                    response.put("success", true);
+                    response.put("message", "User " + user.getFullName() + " was deleted.");
+                    response.put("error", null);
+                    response.put("timestamp", Instant.now().toString());
+                    return ResponseEntity.ok(response);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/users")
     public ResponseEntity<?> getAllUsers(@RequestHeader(value = "X-User-Role", required = false) String requesterRole) {
         if (!isAdmin(requesterRole)) {
@@ -86,7 +164,9 @@ public class AdminController {
         userData.put("id", user.getId());
         userData.put("email", user.getEmail());
         userData.put("fullName", user.getFullName());
+        userData.put("phoneNumber", user.getPhoneNumber());
         userData.put("role", user.getRole());
+        userData.put("emailNotificationsEnabled", user.isEmailNotificationsEnabled());
         return userData;
     }
 

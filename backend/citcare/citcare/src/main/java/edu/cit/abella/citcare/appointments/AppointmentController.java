@@ -70,6 +70,28 @@ public class AppointmentController {
         }
     }
 
+    @PutMapping("/{appointmentId}/complete")
+    public ResponseEntity<?> complete(@PathVariable Long appointmentId, @RequestBody ApprovalRequest request) {
+        try {
+            return ResponseEntity.ok(appointmentResponse(
+                    appointmentService.completeAppointment(appointmentId, request.getStaffId())
+            ));
+        } catch (RuntimeException error) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse(error.getMessage()));
+        }
+    }
+
+    @PutMapping("/{appointmentId}/cancel")
+    public ResponseEntity<?> cancel(@PathVariable Long appointmentId, @RequestBody RejectionRequest request) {
+        try {
+            return ResponseEntity.ok(appointmentResponse(
+                    appointmentService.cancelAppointment(appointmentId, request.getStaffId(), request.getReason())
+            ));
+        } catch (RuntimeException error) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse(error.getMessage()));
+        }
+    }
+
     private Map<String, Object> appointmentResponse(Appointment appointment) {
         Map<String, Object> data = new HashMap<>();
         data.put("id", appointment.getId());
