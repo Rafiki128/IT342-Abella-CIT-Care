@@ -24,8 +24,14 @@ public class User {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Column(nullable = false)
     private String role; // NEW, STUDENT, MEDICAL_STAFF, GUIDANCE_STAFF, or ADMIN
+
+    @Column(name = "email_notifications_enabled")
+    private Boolean emailNotificationsEnabled = true;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -60,8 +66,12 @@ public class User {
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role == null ? null : role.trim().toUpperCase(); }
+    public boolean isEmailNotificationsEnabled() { return emailNotificationsEnabled == null || emailNotificationsEnabled; }
+    public void setEmailNotificationsEnabled(boolean emailNotificationsEnabled) { this.emailNotificationsEnabled = emailNotificationsEnabled; }
     public List<Appointment> getAppointments() { return appointments; }
     public void setAppointments(List<Appointment> appointments) { this.appointments = appointments; }
 }
